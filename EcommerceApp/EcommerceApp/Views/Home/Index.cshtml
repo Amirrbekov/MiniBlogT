@@ -1,0 +1,81 @@
+﻿@model HomePageViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div id="myCarousel" class="carousel slide mb-6 pointer-event" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        @foreach (var item in Model.SliderList)
+        {
+            <div class="carousel-item @(item == Model.SliderList.FirstOrDefault() ? "active" : "")">
+                <img src="/img/@item.ImageUrl" alt="@item.Name" />
+                <div class="container">
+                    <div class="carousel-caption text-start">
+                        <h1>@item.Name</h1>
+                        <p class="opacity-75">@item.Description</p>
+                        <p><a class="btn btn-lg btn-primary" href="@item.Link">Next</a></p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row text-center mt-3">
+        @foreach (var item in Model.NewsList)
+        {
+            <div class="col-lg-4">
+                <img src="/img/@item.ImageUrl" alt="" class="bd-placeholder-img rounded-circle" width="140" height="140" />
+                <h2 class="fw-normal">@item.Name</h2>
+                <p>@item.Content</p>
+                <p><a class="btn btn-secondary" asp-controller="News" asp-action="Detail" asp-route-id="@item.Id">View details »</a></p>
+            </div>
+
+            <!-- /.col-lg-4 -->
+        }
+    </div><!-- /.row -->
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    @foreach (var item in Model.PostList)
+    {
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">@item.Name</h2>
+                <p class="lead">@item.Content</p>
+            </div>
+            <div class="col-md-5">
+                <a asp-controller="Posts" asp-action="Detail" asp-route-id="@item.Id">
+                    <img src="/img/@item.ImageUrl" alt="@item.Name" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="400" height="400" />
+                </a>
+            </div>
+        </div>
+
+        <hr class="featurette-divider">
+    }
+
+    <!-- /END THE FEATURETTES -->
+
+</div><!-- /.container -->

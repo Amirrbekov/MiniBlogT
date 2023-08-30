@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Post>
+@{
+    ViewData["Title"] = "Posts";
+}
+
+<hr class="featurette-divider">
+
+@foreach (var item in Model)
+{
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading fw-normal lh-1">@item.Name</h2>
+            <p class="lead">@item.Content</p>
+        </div>
+        <div class="col-md-5">
+            <a asp-controller="Posts" asp-action="Detail" asp-route-id="@item.Id">
+                <img src="/img/@item.ImageUrl" alt="@item.Name" class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="400" height="400" />
+            </a>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+}

@@ -1,0 +1,92 @@
+﻿@model Entities.Contact
+
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<h1>Contact</h1>
+
+<h4>Contact</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Contact" id="contactForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message" class="control-label"></label>
+                <input asp-for="Message" class="form-control" />
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+                <input id="Button1" type="button" value="Send" onclick="contactForm" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-7">
+        <p>Address : Baku / Azerbaijan</p>
+        <p>Phone Number : +994 05050505</p>
+        <p>Email: info@gmail.com</p>
+    </div>
+</div>
+@{
+    if (TempData["Message"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["Message"]
+        </div>
+    }
+    ViewData["Title"] = "Contact";
+}
+
+<div id="result" class="alert alert-info" style="display:none">
+
+</div>
+
+@section Scripts{
+    <script>
+        function contactForm(){
+            var nameSurname = $("#name").val();
+            var email = $("email").val();
+            var phoneNumber = $("phone").val();
+            var message = $("message").val();
+
+
+            var messagge = {
+                "name": nameSurname,
+                "email":email,
+                "phoneNumber":phoneNumber,
+                "message":message
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/Contact",
+                type: "json",
+                data: message,
+                success : function (data) {
+                    document.getElementById("contactForm").reset();
+                    $("result").show().html("Message was submited succesfully").delay("5000").fadeOut();
+                }
+                Error: function (err) {
+                    $("result").show().removeClass("alert-info").addClass("alert-danger").html("Something went wrong! Message was't submitted").delay("9000").fadeOut();
+                }
+                }
+            })
+        }
+    </script>
+}
