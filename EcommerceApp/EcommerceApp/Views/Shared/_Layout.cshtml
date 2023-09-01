@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="~/EcommerceApp.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @Html.Partial("Header")
+    @*@Html.Partial("Header")*@
+    @await Component.InvokeAsync("Categories")
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

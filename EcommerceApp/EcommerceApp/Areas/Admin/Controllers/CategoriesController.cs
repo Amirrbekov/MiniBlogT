@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using EcommerceApp.Data;
 using Entities;
 using EcommerceApp.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceApp.Areas.Admin.Controllers;
 
-[Area("Admin")]
+[Area("Admin"), Authorize]
 public class CategoriesController : Controller
 {
     private readonly DatabaseContext _context;

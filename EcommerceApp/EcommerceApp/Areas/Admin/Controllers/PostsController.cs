@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using EcommerceApp.Data;
 using Entities;
 using EcommerceApp.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EcommerceApp.Areas.Admin.Controllers;
 
-[Area("Admin")]
+[Area("Admin"), Authorize]
 public class PostsController : Controller
 {
     private readonly DatabaseContext _context;
@@ -65,7 +66,7 @@ public class PostsController : Controller
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Description", post.CategoryId);
+        ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", post.CategoryId);
         return View(post);
     }
 

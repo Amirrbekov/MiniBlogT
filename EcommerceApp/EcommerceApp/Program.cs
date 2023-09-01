@@ -1,5 +1,6 @@
 using DAL;
 using EcommerceApp.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,10 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<DatabaseContext>(); //admin panel context
 builder.Services.AddDbContext<DataBaseContext>(); //DAL library context
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x =>
+{
+    x.LoginPath = "/Admin/Login";
+});
 
 builder.Services.AddRazorPages();
 
