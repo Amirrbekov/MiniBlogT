@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using BL;
 using Entities;
+using EcommerceApp.Utility;
 
 namespace EcommerceApp.Controllers;
 
@@ -50,6 +51,7 @@ public class HomeController : Controller
             try
             {
                 contact.CreateDate = DateTime.Now;
+                var mailsent = MailHelper.SendMail(contact);
                 var result = contactManager.Add(contact);
                 if (result > 0)
                 {
